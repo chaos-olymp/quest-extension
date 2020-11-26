@@ -1,0 +1,9 @@
+name: QuestExtension
+version: 1.0
+author: Crousus
+main: de.chaosolymp.questextension.QuestExtension
+description: Extension for BeautyQuests
+website: https://chaosolymp.de
+prefix: QuestExtension
+api-version: 1.16
+depend:  [ BeautyQuests ]
