@@ -7,3 +7,9 @@ website: https://chaosolymp.de
 prefix: QuestExtension
 api-version: 1.16
 depend:  [ BeautyQuests ]
+
+commands:
+  adventchest:
+    description: Erstelle eine Adventskalenderkiste
+    aliases: [ achest]
+    permission: qe.adventchest

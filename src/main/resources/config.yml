@@ -1,0 +1,4 @@
+advent-not-today: '&8[&e&l!&8] &c&lServer &8» &cDiese Kiste kann heute nicht geöffnet werden!'
+advent-already-opened: '&8[&e&l!&8] &c&lServer &8» &cDu hast diese Kiste bereits geöffnet!'
+no-repair: '&8[&e&l!&8] &c&lServer &8» &cDies geht bei irreparablen Gegenständen nicht!'
+chests:

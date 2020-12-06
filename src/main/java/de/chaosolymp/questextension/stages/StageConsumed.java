@@ -7,8 +7,8 @@ import fr.skytasul.quests.gui.creation.ItemsGUI;
 import fr.skytasul.quests.gui.creation.stages.Line;
 import fr.skytasul.quests.players.PlayerAccount;
 import fr.skytasul.quests.players.PlayersManager;
-import fr.skytasul.quests.players.PlayersManagerYAML;
 import fr.skytasul.quests.structure.QuestBranch;
+import fr.skytasul.quests.structure.QuestBranch.Source;
 import fr.skytasul.quests.utils.Lang;
 import fr.skytasul.quests.utils.Utils;
 import org.bukkit.ChatColor;
@@ -23,8 +23,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class StageConsumed extends AbstractCountableStage<ItemStack> {
-
-    private Map<ItemStack, Integer> amountsMap = new HashMap<>();
 
     public StageConsumed(QuestBranch branch, Map<Integer, Map.Entry<ItemStack, Integer>> objects) {
         super(branch, objects);
@@ -56,6 +54,11 @@ public class StageConsumed extends AbstractCountableStage<ItemStack> {
         return ItemStack.deserialize((Map<String, Object>) o);
     }
 
+    @Override
+    protected String descriptionLine(PlayerAccount acc, Source source){
+        return ChatColor.translateAlternateColorCodes('&',"&eKonsumiere ") + super.descriptionLine(acc, source);
+    }
+
     public static StageConsumed deserialize(Map<String, Object> map, QuestBranch branch) {
         Map<Integer, Map.Entry<ItemStack, Integer>> objects = new HashMap<>();
 
@@ -70,19 +73,6 @@ public class StageConsumed extends AbstractCountableStage<ItemStack> {
 
         StageConsumed stage = new StageConsumed(branch, objects);
         stage.deserialize(map);
-
-        if (map.containsKey("remaining")) {
-            PlayersManagerYAML migration = PlayersManagerYAML.getMigrationYAML();
-            ((Map<String, List<ItemStack>>) map.get("remaining")).forEach((acc, items) -> {
-                Map<ItemStack, Integer> itemsMap = new HashMap<>();
-                for (ItemStack item : items) {
-                    ItemStack itemOne = item.clone();
-                    itemOne.setAmount(1);
-                    itemsMap.put(itemOne, item.getAmount());
-                }
-                stage.migrateDatas(migration.getByIndex(acc), itemsMap);
-            });
-        }
 
         return stage;
     }
